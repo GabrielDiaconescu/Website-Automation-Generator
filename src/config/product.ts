@@ -22,15 +22,16 @@ export const deliveryPhases: readonly DeliveryPhase[] = [
   {
     id: "faza-1",
     name: "Foundation",
-    status: "in_progress",
+    status: "done",
     summary:
       "Next.js, TypeScript strict, Tailwind, design system tokens, validated env, structured errors and logging.",
   },
   {
     id: "faza-2",
     name: "Database",
-    status: "planned",
-    summary: "Supabase schema, migrations, row level security, seed data.",
+    status: "in_progress",
+    summary:
+      "Tenancy schema, row level security and seed data, verified against PostgreSQL; awaiting a Supabase project to apply to.",
   },
   {
     id: "faza-3",

@@ -6,12 +6,15 @@ configuration.
 
 Product rules, architecture principles and the phased delivery plan live in
 [`Website + Automation Generator/MASTER_PROMPT.md`](<Website + Automation Generator/MASTER_PROMPT.md>).
-Architecture notes: [`ARCHITECTURE.md`](ARCHITECTURE.md).
+Architecture notes: [`ARCHITECTURE.md`](ARCHITECTURE.md) ·
+[`DATABASE.md`](DATABASE.md).
 
-**Current state: FAZA 1 — Foundation.** The app shell, design system tokens,
-env validation, error handling and logging are in place. Database, auth and
-every product feature land in later phases; see `deliveryPhases` in
-`src/config/product.ts` for what is actually shipped.
+**Current state: FAZA 2 — Database.** The app shell, design system tokens, env
+validation, error handling and logging are done. The tenancy schema and its row
+level security are written and verified against PostgreSQL, but no Supabase
+project has been created yet, so nothing is applied and the app does not talk to
+a database. Auth and every product feature land in later phases; see
+`deliveryPhases` in `src/config/product.ts` for what is actually shipped.
 
 ## Requirements
 
@@ -50,9 +53,12 @@ printed, so a bad secret cannot leak into logs or CI output.
 | `npm test`             | Unit tests (Vitest)                         |
 | `npm run format`       | Prettier, writes                            |
 | `npm run format:check` | Prettier, verify only                       |
+| `npm run db:test`      | Migrations, seed and RLS assertions         |
 
-Database, migration and seed commands arrive with FAZA 2; there is no database
-in the project yet.
+`npm run db:test` needs no credentials: it starts a throwaway local PostgreSQL
+cluster, applies `supabase/migrations/`, loads the seed and asserts tenant
+isolation. Point it at an existing database with `TEST_DATABASE_URL`. See
+[`DATABASE.md`](DATABASE.md).
 
 ## Before pushing
 
