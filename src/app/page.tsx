@@ -4,12 +4,14 @@ import { deliveryPhases, product, type DeliveryStatus } from "@/config/product";
 const STATUS_LABEL: Record<DeliveryStatus, string> = {
   done: "Shipped",
   in_progress: "In progress",
+  blocked: "Blocked",
   planned: "Planned",
 };
 
 const STATUS_CLASS: Record<DeliveryStatus, string> = {
   done: "bg-primary text-primary-foreground",
   in_progress: "bg-accent text-accent-foreground border",
+  blocked: "bg-destructive/10 text-destructive border border-destructive/30",
   planned: "bg-muted text-muted-foreground",
 };
 

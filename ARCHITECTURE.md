@@ -86,6 +86,28 @@ password, secret, token, authorization, cookie, session, credential and
 signature, is replaced with `[redacted]`. Over-redacting a log line costs
 nothing; one unlisted credential name costs a leaked secret.
 
+## Registries
+
+`src/registry/` holds the configuration backbone: business types, features and
+(later) templates. They share one typed `createRegistry` factory. Registration
+happens at module load, and a duplicate id throws rather than shadowing the
+first entry — it is a programming error, not a runtime condition.
+
+Ids are string-literal unions, so a typo in a feature list is a compile error
+rather than a silently dropped capability. Adding an entry means adding a
+definition and one union member; no engine code changes (rules 44-46).
+
+Features declare dependencies. `resolveDependencies` expands a selection over
+that graph and reports what it added and why, which is what lets the
+configurator say "AI on WhatsApp requires WhatsApp" instead of silently
+enabling something the user did not tick (rule 97). It takes the graph as a
+function rather than reaching for a registry, so it is exercised against
+synthetic graphs — cycles included, where the visited set makes it terminate.
+
+Business types carry a recommended feature set that is deliberately _not_
+dependency-complete: recommendations say what the trade needs, and resolution
+fills in the plumbing (rules 40, 94, 98).
+
 ## Validation
 
 Zod is the standard for every external input (rule 69): forms, query params,

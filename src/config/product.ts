@@ -5,7 +5,7 @@ export const product = {
     "A multi-tenant SaaS platform that generates a business website, its content, lead capture, CRM, AI assistant and follow-up automations from a single configuration.",
 } as const;
 
-export type DeliveryStatus = "done" | "in_progress" | "planned";
+export type DeliveryStatus = "done" | "in_progress" | "blocked" | "planned";
 
 export type DeliveryPhase = {
   id: string;
@@ -36,13 +36,29 @@ export const deliveryPhases: readonly DeliveryPhase[] = [
   {
     id: "faza-3",
     name: "Auth",
-    status: "planned",
-    summary: "Sign up, sign in, sessions, protected routes, onboarding entry.",
+    status: "blocked",
+    summary:
+      "Sign up, sign in, sessions, protected routes. Needs Supabase credentials before it can be built or verified.",
   },
   {
     id: "faza-4",
     name: "Organizations",
-    status: "planned",
-    summary: "Organizations, members, roles, permissions, tenant switching.",
+    status: "blocked",
+    summary:
+      "Members, roles, permissions and tenant switching, on top of auth.",
+  },
+  {
+    id: "faza-5",
+    name: "Business types",
+    status: "done",
+    summary:
+      "Registry of trades with categories and the feature set each one is configured with by default.",
+  },
+  {
+    id: "faza-6",
+    name: "Feature registry",
+    status: "done",
+    summary:
+      "Features and their dependencies, with selection resolution that explains what each choice pulls in.",
   },
 ];
